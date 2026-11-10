@@ -69,7 +69,7 @@ export function Footer() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="inline-block py-2 text-[0.9375rem] underline-offset-[0.4em] decoration-gold hover:underline"
+                  className="inline-flex min-h-11 items-center text-[0.9375rem] underline-offset-[0.4em] decoration-gold hover:underline"
                 >
                   {link.label}
                 </a>
