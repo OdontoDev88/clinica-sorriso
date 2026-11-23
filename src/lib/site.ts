@@ -1,4 +1,7 @@
-/** Todo o conteúdo abaixo é fictício e existe só para demonstração de portfólio. */
+/**
+ * Conteúdo e configurações do site.
+ * Tudo aqui é fictício: a Clínica Sorriso é uma demonstração de portfólio.
+ */
 
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
@@ -6,163 +9,221 @@ export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
 
+/* ------------------------------------------------------------------ */
+/* WHATSAPP — único lugar para configurar                              */
+/* ------------------------------------------------------------------ */
+
+export const whatsapp = {
+  /**
+   * Número com DDI + DDD + telefone, só dígitos. Ex.: "5511999991234".
+   * Vazio = modo demonstração: os botões abrem um aviso explicando que a
+   * clínica é fictícia, em vez de mandar mensagem para um número qualquer.
+   */
+  number: "",
+  /** Mensagem padrão que aparece pronta no WhatsApp. */
+  message: "Olá! Vim pelo site da Clínica Sorriso e gostaria de agendar uma avaliação.",
+};
+
+export const isWhatsappConfigured = /^\d{10,15}$/.test(whatsapp.number);
+
+export function whatsappUrl(message: string = whatsapp.message) {
+  return `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(message)}`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Dados da clínica (demonstrativos)                                    */
+/* ------------------------------------------------------------------ */
+
 export const clinic = {
   name: "Clínica Sorriso",
-  slogan: "Seu sorriso, nossa prioridade.",
-  address: ["Av. das Palmeiras, 850", "Jardim Paulista", "São Paulo - SP", "CEP 01423-001"],
-  phone: "(11) 3456-7890",
-  whatsapp: "(11) 99999-1234",
+  tagline: "Odontologia moderna e humanizada",
+  address: {
+    street: "Rua Exemplo, 123 — Sala Demonstração",
+    district: "Bairro Fictício",
+    city: "São Paulo – SP",
+    zip: "CEP 00000-000",
+  },
+  phone: "(11) 0000-0000",
   email: "contato@clinicasorriso.example",
   hours: [
-    { days: "Segunda a sexta", time: "08h às 19h" },
-    { days: "Sábado", time: "08h às 13h" },
-    { days: "Domingo", time: "Fechado" },
+    { days: "Segunda a sexta", time: "8h às 19h" },
+    { days: "Sábado", time: "8h às 13h" },
+    { days: "Domingo e feriados", time: "Fechado" },
   ],
   demoNotice:
-    "Clínica fictícia. Este site é uma demonstração de portfólio: nomes, profissionais, endereço, contatos e avaliações não são reais.",
+    "Site demonstrativo: a Clínica Sorriso é fictícia. Endereço, telefone, profissionais e depoimentos não são reais.",
 };
 
 export const navLinks = [
   { label: "Início", href: "#inicio" },
-  { label: "Especialidades", href: "#especialidades" },
-  { label: "Estrutura", href: "#estrutura" },
-  { label: "Quem somos", href: "#quem-somos" },
-  { label: "Avaliações", href: "#avaliacoes" },
+  { label: "Sobre nós", href: "#sobre" },
+  { label: "Tratamentos", href: "#tratamentos" },
+  { label: "Diferenciais", href: "#diferenciais" },
+  { label: "Contato", href: "#contato" },
 ];
 
-export type GalleryPhoto = {
-  src: string;
+/** Perfis demonstrativos. Preencha `href` com o perfil real para virar link. */
+export const socialLinks: { label: "Instagram" | "Facebook" | "LinkedIn"; href: string }[] = [
+  { label: "Instagram", href: "" },
+  { label: "Facebook", href: "" },
+  { label: "LinkedIn", href: "" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Conteúdo das seções                                                 */
+/* ------------------------------------------------------------------ */
+
+export type TreatmentIcon =
+  | "whitening"
+  | "implant"
+  | "braces"
+  | "veneers"
+  | "canal"
+  | "cleaning";
+
+export const treatments: {
+  id: string;
+  title: string;
+  text: string;
+  icon: TreatmentIcon;
+  image: string;
   alt: string;
-  caption: string;
-  /** Proporção de exibição, próxima da original para não cortar o assunto. */
-  ratio: number;
-};
-
-export const structurePhotos: GalleryPhoto[] = [
+  position?: string;
+}[] = [
   {
-    src: "/images/fachada-clinica.webp",
-    alt: "Fachada da clínica ao entardecer, com o letreiro iluminado e jardim",
-    caption: "Fachada",
-    ratio: 2.05,
+    id: "clareamento",
+    title: "Clareamento dental",
+    text: "Dentes mais claros de forma segura, com técnica escolhida para a sensibilidade de cada paciente.",
+    icon: "whitening",
+    image: "/images/tratamento-clareamento.jpg",
+    alt: "Close de um sorriso com dentes claros e lábios naturais",
+    position: "70% 50%",
   },
   {
-    src: "/images/recepcao-02.webp",
-    alt: "Recepção com balcão de mármore, orquídeas e logotipo na parede",
-    caption: "Recepção",
-    ratio: 1.72,
+    id: "implantes",
+    title: "Implantes dentários",
+    text: "Reposição de dentes com planejamento digital, para devolver firmeza ao sorriso e conforto ao mastigar.",
+    icon: "implant",
+    image: "/images/tratamento-implante.jpg",
+    alt: "Mão com luva segurando um implante dentário com coroa",
+    position: "50% 45%",
   },
   {
-    src: "/images/sala-espera.webp",
-    alt: "Sala de espera com poltronas bege, plantas e quadros de linhas finas",
-    caption: "Sala de espera",
-    ratio: 1.95,
+    id: "ortodontia",
+    title: "Aparelhos ortodônticos",
+    text: "Aparelhos fixos, estéticos ou alinhadores transparentes para alinhar os dentes no seu ritmo.",
+    icon: "braces",
+    image: "/images/tratamento-ortodontia.jpg",
+    alt: "Dois modelos de arcada dentária, um com aparelho ortodôntico",
   },
   {
-    src: "/images/consultorio-01.webp",
-    alt: "Consultório claro com cadeira odontológica e janelas com persianas",
-    caption: "Consultório",
-    ratio: 1.95,
+    id: "facetas",
+    title: "Lentes e facetas",
+    text: "Correção de forma, cor e proporção dos dentes com resultado natural, desenhado para o seu rosto.",
+    icon: "veneers",
+    image: "/images/tratamento-facetas.jpg",
+    alt: "Paciente sorrindo enquanto observa o próprio sorriso em um espelho",
+    position: "50% 35%",
   },
   {
-    src: "/images/consultorio-04.webp",
-    alt: "Cadeira, refletor e equipamentos odontológicos em consultório iluminado",
-    caption: "Equipamentos",
-    ratio: 1.9,
-  },
-];
-
-export const teamPhotos: GalleryPhoto[] = [
-  {
-    src: "/images/dentista-atendimento-01.webp",
-    alt: "Dentista com lupa de aumento atendendo uma paciente na cadeira",
-    caption: "Atendimento",
-    ratio: 2.2,
+    id: "canal",
+    title: "Tratamento de canal",
+    text: "Diagnóstico por imagem e anestesia cuidadosa para tratar a dor e preservar o dente natural.",
+    icon: "canal",
+    image: "/images/tratamento-canal.jpg",
+    alt: "Dentista apontando uma tomografia dentária em um tablet",
   },
   {
-    src: "/images/equipe-odontologica-02.webp",
-    alt: "Quatro profissionais de jaleco branco sorrindo em frente ao logotipo iluminado",
-    caption: "Equipe odontológica",
-    ratio: 2.15,
-  },
-  {
-    src: "/images/consulta-raio-x.webp",
-    alt: "Dentista mostrando uma radiografia panorâmica em um monitor para a paciente",
-    caption: "Explicação do exame",
-    ratio: 2.1,
-  },
-  {
-    src: "/images/procedimento-clinico.webp",
-    alt: "Dupla de profissionais com touca e máscara durante um procedimento clínico",
-    caption: "Procedimento clínico",
-    ratio: 1.65,
-  },
-  {
-    src: "/images/consulta-paciente-02.webp",
-    alt: "Dentista sorridente apresentando uma radiografia em um tablet para a paciente",
-    caption: "Consulta",
-    ratio: 2.05,
+    id: "limpeza",
+    title: "Limpeza e prevenção",
+    text: "Profilaxia, check-up e orientações para manter gengivas saudáveis e evitar tratamentos maiores.",
+    icon: "cleaning",
+    image: "/images/tratamento-limpeza.jpg",
+    alt: "Dentista sorridente atendendo um paciente tranquilo na cadeira",
+    position: "50% 40%",
   },
 ];
 
-export const specialties = [
+export type DifferentialIcon = "heart" | "building" | "award" | "plan" | "tech";
+
+export const differentials: { title: string; text: string; icon: DifferentialIcon }[] = [
   {
-    title: "Estética Dental",
-    text: "Cuidados estéticos personalizados para valorizar seu sorriso.",
-    src: "/images/estetica-dental.webp",
-    alt: "Sorriso de uma paciente ao lado de uma escala de cor dental",
-    position: "42% 50%",
+    title: "Atendimento humanizado",
+    text: "Tempo para ouvir, explicar cada etapa e respeitar o seu conforto, inclusive para quem tem medo de dentista.",
+    icon: "heart",
   },
   {
-    title: "Implantodontia",
-    text: "Tratamentos voltados à reabilitação oral e reposição dentária.",
-    src: "/images/implante-dentario.webp",
-    alt: "Modelo odontológico transparente com um implante dentário",
-    position: "50% 50%",
+    title: "Estrutura moderna",
+    text: "Consultórios amplos, iluminados e equipados, com protocolos rigorosos de esterilização.",
+    icon: "building",
   },
   {
-    title: "Ortodontia",
-    text: "Acompanhamento odontológico para alinhamento dos dentes.",
-    src: "/images/ortodontia-02.webp",
-    alt: "Sorriso com aparelho ortodôntico metálico",
-    position: "55% 50%",
+    title: "Profissionais qualificados",
+    text: "Equipe com especialistas em cada área, em atualização constante.",
+    icon: "award",
+  },
+  {
+    title: "Planejamento personalizado",
+    text: "Plano de tratamento sob medida, com prazos e etapas claros desde a primeira consulta.",
+    icon: "plan",
+  },
+  {
+    title: "Tecnologia odontológica",
+    text: "Radiografia digital, escaneamento intraoral e simulação do sorriso antes de começar.",
+    icon: "tech",
   },
 ];
 
-export const services = [
-  "Clínica Geral",
-  "Clareamento Dental",
-  "Facetas Dentais",
-  "Lentes de Contato Dental",
-  "Tratamento de Canal",
-  "Próteses Dentárias",
-  "Odontopediatria",
-  "Periodontia",
+export const experience = [
+  {
+    src: "/images/consultorio-moderno.jpg",
+    alt: "Consultório odontológico amplo e claro, com cadeira, armários brancos e janelas",
+    caption: "Consultórios amplos e iluminados",
+  },
+  {
+    src: "/images/sala-espera.jpg",
+    alt: "Sala de espera minimalista com cadeiras pretas, planta e quadro na parede",
+    caption: "Recepção tranquila",
+  },
+  {
+    src: "/images/cadeira-odontologica.jpg",
+    alt: "Cadeira odontológica branca moderna ao lado de uma janela",
+    caption: "Equipamentos modernos",
+  },
+  {
+    src: "/images/atendimento-acolhedor.jpg",
+    alt: "Dentista de jaleco azul ajustando o refletor antes de atender uma paciente",
+    caption: "Atendimento acolhedor",
+  },
+  {
+    src: "/images/consulta-planejamento.jpg",
+    alt: "Dentista mostrando a imagem de um sorriso em um monitor para a paciente",
+    caption: "Planejamento explicado",
+  },
+  {
+    src: "/images/corredor-clinica.jpg",
+    alt: "Corredor claro da clínica com poltrona e iluminação suave",
+    caption: "Ambiente sereno",
+  },
 ];
 
-export const reviews = [
+export const testimonials = [
   {
     quote:
-      "Fui muito bem atendida desde o primeiro contato. A equipe é atenciosa e o ambiente muito agradável.",
-    author: "Ana Martins",
+      "Sempre tive medo de dentista, mas me senti segura desde a primeira consulta. Explicaram cada etapa com muita calma.",
+    name: "Paciente A.",
+    detail: "Clareamento dental",
   },
   {
-    quote: "Gostei muito da atenção e da clareza nas explicações durante a consulta.",
-    author: "Carlos Ferreira",
+    quote:
+      "O planejamento do implante foi todo mostrado na tela antes de começar. Saber o que ia acontecer fez toda a diferença.",
+    name: "Paciente R.",
+    detail: "Implante dentário",
   },
   {
-    quote: "Uma experiência acolhedora e muito profissional. Recomendo conhecer a clínica.",
-    author: "Juliana Costa",
+    quote:
+      "Ambiente lindo, pontualidade e uma equipe muito atenciosa. Meus filhos agora pedem para voltar.",
+    name: "Paciente M.",
+    detail: "Limpeza e prevenção",
   },
 ];
-
-export const dentist = {
-  name: "Dra. Mariana Oliveira",
-  role: "Cirurgiã-dentista",
-  experience: "12 anos de experiência",
-  education: [
-    "Graduação em Odontologia pela Universidade Paulista",
-    "Especialização em Dentística",
-    "Especialização em Implantodontia",
-    "Formação complementar em Estética Dental",
-  ],
-};

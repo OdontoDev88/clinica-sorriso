@@ -1,35 +1,59 @@
+import { ArrowRight, Clock } from "lucide-react";
 import Image from "next/image";
-import { BookingButton } from "@/components/Booking";
+import { WhatsAppIcon } from "@/components/Icons";
+import { WhatsAppLink } from "@/components/WhatsApp";
 
 export function FinalCta() {
   return (
-    <section
-      id="agendar"
-      data-panel
-      className="on-dark relative flex min-h-[38rem] items-end overflow-hidden bg-cocoa text-linen lg:min-h-[46rem]"
-    >
-      <div data-parallax className="absolute inset-x-0 -top-[8%] h-[116%]">
-        <Image
-          src="/images/fachada-clinica.webp"
-          alt=""
-          fill
-          quality={85}
-          sizes="100vw"
-          className="object-cover object-[72%_50%]"
-        />
-      </div>
-      {/* Véu necessário para o contraste do texto sobre a fotografia. */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(47_32_24/0.95)_18%,rgb(47_32_24/0.78)_62%,rgb(47_32_24/0.35)_100%)] lg:bg-[linear-gradient(to_right,rgb(47_32_24/0.92)_12%,rgb(47_32_24/0.62)_52%,rgb(47_32_24/0.1)_82%)]" />
+    <section aria-labelledby="cta-titulo" className="py-[calc(var(--section-y)*0.6)]">
+      <div className="shell">
+        <div
+          data-reveal-media
+          className="on-dark relative isolate overflow-hidden rounded-[2rem] bg-navy text-white shadow-[var(--shadow-lift)] sm:rounded-[2.5rem]"
+        >
+          <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[55%]">
+            <Image
+              src="/images/sorriso-natural.jpg"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              data-parallax
+              className="object-cover object-[60%_40%]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/10 max-md:bg-navy/80 max-md:bg-none" />
+          </div>
+          <div
+            aria-hidden="true"
+            className="absolute -left-24 -top-24 -z-10 size-80 rounded-full bg-azure/40 blur-3xl"
+          />
 
-      <div className="shell relative py-16 lg:py-24">
-        <h2 data-title className="heading max-w-[17ch]">
-          Seu sorriso merece atenção, cuidado e os melhores profissionais ao seu lado.
-        </h2>
-        <p data-rise className="mt-5 max-w-[34rem] text-[1.125rem] text-sand">
-          Conheça a Clínica Sorriso e descubra uma experiência odontológica acolhedora.
-        </p>
-        <div data-rise className="mt-8">
-          <BookingButton label="Agendar avaliação" tone="light" />
+          <div className="max-w-2xl px-7 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
+            <p className="eyebrow">Agende sua avaliação</p>
+            <h2 id="cta-titulo" className="heading mt-5">
+              Está na hora de cuidar do seu <em>sorriso?</em>
+            </h2>
+            <p className="mt-6 max-w-lg text-[1.0625rem] leading-relaxed text-sky">
+              Converse com a nossa equipe pelo WhatsApp, tire suas dúvidas e encontre o melhor horário
+              para a sua primeira avaliação. Sem compromisso.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <WhatsAppLink className="btn btn-whatsapp">
+                <WhatsAppIcon />
+                Chamar no WhatsApp
+              </WhatsAppLink>
+              <a
+                href="#contato"
+                className="btn border border-white/25 text-white hover:-translate-y-0.5 hover:bg-white/10"
+              >
+                Ver endereço e horários
+                <ArrowRight className="btn-arrow size-4" aria-hidden="true" />
+              </a>
+            </div>
+            <p className="mt-7 flex items-center gap-2 text-[0.875rem] text-sky">
+              <Clock className="size-4 text-accent" aria-hidden="true" />
+              Resposta em horário comercial
+            </p>
+          </div>
         </div>
       </div>
     </section>

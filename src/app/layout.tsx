@@ -1,25 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Marcellus } from "next/font/google";
+import { Instrument_Serif, Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 import { clinic, siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const marcellus = Marcellus({
+const instrument = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-marcellus",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
   display: "swap",
 });
 
-const figtree = Figtree({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-figtree",
+  variable: "--font-manrope",
   display: "swap",
 });
 
-const title = "Clínica Sorriso | Clínica odontológica fictícia para portfólio";
+const title = "Clínica Sorriso | Odontologia moderna e humanizada (site demonstrativo)";
 const description =
-  "Demonstração de portfólio: site de uma clínica odontológica fictícia, com estética dental, implantodontia e ortodontia. As informações não são reais.";
+  "Clareamento, implantes, aparelhos, lentes e facetas, canal e prevenção com atendimento humanizado. Site demonstrativo de uma clínica odontológica fictícia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -27,6 +28,14 @@ export const metadata: Metadata = {
   description,
   applicationName: clinic.name,
   alternates: { canonical: "/" },
+  keywords: [
+    "clínica odontológica",
+    "dentista",
+    "clareamento dental",
+    "implante dentário",
+    "aparelho ortodôntico",
+    "lentes de contato dental",
+  ],
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -43,20 +52,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fbf8f2",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="pt-BR"
-      className={`${marcellus.variable} ${figtree.variable}`}
+      className={`${instrument.variable} ${manrope.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('motion-ready')},2500)",
           }}
         />
       </head>
